@@ -1,0 +1,3 @@
+workflows:
+  - name: cdktf-azure-demo
+    entrypoint: ./scripts/entrypoint.sh
