@@ -18,33 +18,37 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.13'
+        python-version: '3.13'  # Use stable version for pipenv support
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'  # Compatible with CDKTF
 
     - name: Install Pipenv
       run: pip install pipenv
 
-    - name: Install dependencies
+    - name: Install Python dependencies
       run: pipenv install --dev
 
     - name: Install CDKTF CLI
       run: npm install -g cdktf-cli
 
-    - name: Synthesize CDKTF
-      run: pipenv run python main.py
+    - name: Synthesize Terraform configuration
+      run: pipenv run cdktf synth
 
-    - name: Upload synthesized config (optional debug)
+    - name: Upload synthesized output (debug step)
       uses: actions/upload-artifact@v3
       with:
         name: cdktf-out
         path: cdktf.out/
 
-    - name: Terraform Init & Plan
+    - name: Terraform Init and Plan
       run: |
         terraform init
         terraform plan
       working-directory: ./cdktf.out
       env:
-        # TFC will use these automatically if linked
         ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
         ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
