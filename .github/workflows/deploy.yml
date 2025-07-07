@@ -39,9 +39,9 @@ jobs:
         terraform_version: 1.6.6
 
     - name: Generate providers (cdktf get)
-      run: pipenv run cdktf get
+      run: pipenv run cdktf get --no-telemetry
       env:
-        CDKTF_LOG_LEVEL: warn  # prevents extra log output that breaks JSON parsing
+        CDKTF_LOG_LEVEL: warn
 
     - name: Synthesize Terraform configuration
       run: pipenv run cdktf synth
