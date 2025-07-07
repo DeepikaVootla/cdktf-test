@@ -1,0 +1,17 @@
+{
+  "language": "python",
+  "app": "pipenv run python main.py",
+  "projectId": "7a2bbed6-2c7c-4673-87a2-47d756a40de6",
+  "sendCrashReports": "true",
+  "terraformProviders": [
+    "hashicorp/azurerm@~>3.0"
+  ],
+  "terraformCloud": {
+    "organization": "tsco",
+    "workspaces": {
+      "name": "cdktf-azure-demo"
+    }
+  },
+  "codeMakerOutput": "imports",
+  "context": {}
+}
