@@ -34,6 +34,9 @@ jobs:
     - name: Install CDKTF CLI
       run: npm install -g cdktf-cli
 
+    - name: Generate providers
+      run: pipenv run cdktf get
+
     - name: Synthesize Terraform configuration
       run: pipenv run cdktf synth
 
