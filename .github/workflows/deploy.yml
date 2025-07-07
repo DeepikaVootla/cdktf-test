@@ -2,8 +2,7 @@ name: "CDKTF CI/CD Pipeline"
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
 
 jobs:
@@ -18,12 +17,12 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.13' 
+        python-version: '3.10'
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '20'
+        node-version: '18'
 
     - name: Install Pipenv
       run: pip install pipenv
@@ -39,8 +38,10 @@ jobs:
       with:
         terraform_version: 1.6.6
 
-    - name: Generate providers
+    - name: Generate providers (cdktf get)
       run: pipenv run cdktf get
+      env:
+        CDKTF_LOG_LEVEL: warn  # prevents extra log output that breaks JSON parsing
 
     - name: Synthesize Terraform configuration
       run: pipenv run cdktf synth
@@ -51,7 +52,7 @@ jobs:
         name: cdktf-out
         path: cdktf.out/
 
-    - name: Terraform Init and Plan
+    - name: Terraform Init & Plan
       run: |
         terraform init
         terraform plan
