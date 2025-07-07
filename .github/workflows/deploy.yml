@@ -18,12 +18,12 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.13'  # Use stable version for pipenv support
+        python-version: '3.13' 
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '20'  # Compatible with CDKTF
+        node-version: '20'
 
     - name: Install Pipenv
       run: pip install pipenv
@@ -38,7 +38,7 @@ jobs:
       run: pipenv run cdktf synth
 
     - name: Upload synthesized output (debug step)
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: cdktf-out
         path: cdktf.out/
