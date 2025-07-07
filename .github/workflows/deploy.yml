@@ -34,6 +34,11 @@ jobs:
     - name: Install CDKTF CLI
       run: npm install -g cdktf-cli
 
+    - name: Install Terraform CLI
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.6.6
+
     - name: Generate providers
       run: pipenv run cdktf get
 
